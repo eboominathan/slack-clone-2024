@@ -1,9 +1,11 @@
 "use client"
 import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem } from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Typography from "@/components/ui/typography";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import { BsSlack } from "react-icons/bs";
@@ -13,6 +15,8 @@ import { RxGithubLogo } from "react-icons/rx";
 import { z } from "zod";
 
 const AuthPage = () => {
+
+    const [isAuthenticating, setisAuthenticating] = useState(false); 
 
   const formSchema = z.object({
       email: z.string().email().min(2,{message:"Email must be 2 characters"}),
@@ -24,6 +28,10 @@ const AuthPage = () => {
       email:'', 
     }
   });
+
+  async function onSubmit(values : z.infer<typeof formSchema>){
+    console.log(values);
+  };
 
 
 
@@ -49,7 +57,9 @@ const AuthPage = () => {
             className='opacity-90 mb-7'
           />
         <div className="flex flex-col space-y-4">
-          <Button variant='outline' className="py-6 border-2 flex space-x-3" >
+          <Button 
+           disabled={isAuthenticating}
+           variant='outline' className="py-6 border-2 flex space-x-3" >
             <FcGoogle size={30} />
             <Typography
              className='text-xl'
@@ -57,7 +67,10 @@ const AuthPage = () => {
              variant='p'
              ></Typography>             
           </Button>
-          <Button variant='outline' className="py-6 border-2 flex space-x-3">
+          <Button 
+          disabled={isAuthenticating}
+          variant='outline'
+           className="py-6 border-2 flex space-x-3">
             <RxGithubLogo  size={30}/>
             <Typography
              className='text-xl'
@@ -75,13 +88,20 @@ const AuthPage = () => {
           
             {/* FORM  */}
             <Form {...form} >
-              <form>
-                <fieldset>
-                  <FormField  control={form.control} name="email" render={({field}) =>(
+              <form onSubmit={form.handleSubmit(onSubmit)}>
+                <fieldset disabled={isAuthenticating}>
+                <FormField
+                  control={form.control}
+                  name='email'
+                  render={({ field }) => (
                     <FormItem>
-                      <Input placeholder="name@work-email.com" {...field} />
-                  </FormItem>
-                )}/>
+                      <FormControl>
+                        <Input placeholder='name@work-email.com' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               <Button
                   variant='secondary'
                   className='bg-primary-dark hover:bg-primary-dark/90 w-full my-5 text-white'
@@ -106,7 +126,7 @@ const AuthPage = () => {
                 
           </div>
         </div>
-
+                <p className="text-gray-500 my-10">&copy; 2024 Developed By <Link href="https://linkedin.com/in/eboominathan">Boominathan Elango</Link></p>
       </div> 
   );
 };
