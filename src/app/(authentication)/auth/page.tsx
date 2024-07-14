@@ -1,12 +1,15 @@
 "use client"
+import { registerWithEmail } from "@/actions/resgister-with-email";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Typography from "@/components/ui/typography";
+import { supabaseBrowserClient } from "@/supabase/supabaseClient";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Provider } from "@supabase/supabase-js";
 import Link from "next/link";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 
 import { BsSlack } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
@@ -16,7 +19,7 @@ import { z } from "zod";
 
 const AuthPage = () => {
 
-    const [isAuthenticating, setisAuthenticating] = useState(false); 
+    const [isAuthenticating, setIsAuthenticating] = useState(false); 
 
   const formSchema = z.object({
       email: z.string().email().min(2,{message:"Email must be 2 characters"}),
@@ -29,9 +32,27 @@ const AuthPage = () => {
     }
   });
 
-  async function onSubmit(values : z.infer<typeof formSchema>){
-    console.log(values);
-  };
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsAuthenticating(true);
+    const response = await registerWithEmail(values);
+    const { data, error } = JSON.parse(response);
+    setIsAuthenticating(false);
+    if (error) {
+      console.warn('Sign in error', error);
+      return;
+    }
+  }
+ 
+  async function socialAuth(provider: Provider) {
+    setIsAuthenticating(true);
+    await supabaseBrowserClient.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${location.origin}/auth/callback`,
+      },
+    });
+    setIsAuthenticating(false);
+  }
 
 
 
@@ -65,6 +86,7 @@ const AuthPage = () => {
              className='text-xl'
              text="Sign in with Google"
              variant='p'
+             onClick={() => socialAuth('google')}            
              ></Typography>             
           </Button>
           <Button 
@@ -76,6 +98,7 @@ const AuthPage = () => {
              className='text-xl'
              text="Sign in with Github"
              variant='p'
+             onClick={() => socialAuth('github')}
              ></Typography>             
           </Button>
         </div>
