@@ -6,8 +6,9 @@ export default async function Home() {
   const userData = await getUserData();
 
   if (!userData) return redirect('/auth');
+  console.log(userData);
 
-  const userWorkspaceId = userData.workplaces?.[0];
+  const userWorkspaceId = userData.workspaces?.[0];
 
   if (!userWorkspaceId) return redirect('/create-workspace');
 
