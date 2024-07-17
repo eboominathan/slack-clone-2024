@@ -12,6 +12,7 @@ import Typography from '@/components/ui/typography';
  
 import { useRouter } from 'next/navigation';
 import { useCreateWorkspaceValues } from '@/hooks/create-workspace-value';
+import ImageUpload from '@/components/image-upload';
 
 const CreateWorkspace = () => {
   const { currStep } = useCreateWorkspaceValues();
@@ -128,7 +129,7 @@ const Step2 = () => {
           disabled={isSubmitting}
           className='mt-6 flex flex-col items-center space-y-9'
         >
-          {/* <ImageUpload /> */}
+          <ImageUpload />
           <div className='space-x-5'>
             <Button
               onClick={() => {
