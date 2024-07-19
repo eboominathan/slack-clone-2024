@@ -4,8 +4,6 @@ import { supabaseServerClient } from '@/supabase/supabaseServer';
 import { getUserData } from './get-user-data';
 import { updateUserWorkspace } from './update-user-worspace';
 import { addMemberToWorkspace } from './add-member-to-workspace';
-// import { updateUserWorkspace } from './update-user-workspace';
-// import { addMemberToWorkspace } from './add-member-to-workspace';
 
 export const createWorkspace = async ({
   imageUrl,
