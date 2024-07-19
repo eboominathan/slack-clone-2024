@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Slack Clone 2024",
   description: "Boominathan Elango Fullstack Slack Clone using Next.js 15, Postgresql, Supabase, Typescript, Bun, Socket.io ",
 };
+export const revalidate = 0;
 
 export default function RootLayout({
   children,
