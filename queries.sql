@@ -43,14 +43,28 @@ execute procedure public.handle_new_user ();
 
 
 
-ADD USER TO WORKSPACE
+ADD WORKSPACE TO USER
 create
 or replace function add_workspace_to_user (user_id uuid, new_workspace text) returns void as $$
-BEGIN
-  update users set workspaces = workspaces || array[new_workspace]
-  where id = user_id;
+BEGIN 
+update users set workspaces = workspaces || array[new_workspace] 
+where id = user_id; 
+END; 
+$$ language plpgsql;
+
+
+ADD MEMBER  TO WORKSPACE
+create 
+or replace 
+function add_member_to_workspace(user_id text,workspace_id uuid) returns void as $$
+BEGIN 
+  update workspaces set members = members || array[user_id]  
+  where id = workspace_id;
 END;
 $$ language plpgsql;
+
+
+
 
 CREATE CHANNELS
 create table
