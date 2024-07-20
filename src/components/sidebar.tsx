@@ -4,12 +4,12 @@ import { User, Workspace } from "@/types/app";
 import SidebarNav from "./sidebar-nav";
 
 type SideBarProps = {
-  userWorkspaceData: Workspace[];
+  userWorkspacesData: Workspace[];
   currentWorkspaceData: Workspace;
   userData: User;
 };
 const Sidebar: FC<SideBarProps> = ({
-  userWorkspaceData,
+  userWorkspacesData,
   currentWorkspaceData,
   userData,
 }) => {
@@ -31,7 +31,7 @@ const Sidebar: FC<SideBarProps> = ({
     >
       <SidebarNav
         currentWorkspaceData={currentWorkspaceData}
-        userWorkspaceData={userWorkspaceData}
+        userWorkspacesData={userWorkspacesData}
       />
     </aside>
   );

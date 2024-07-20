@@ -8,7 +8,7 @@ const Workspace = async ({ params: { id } }: { params: { id: string } }) => {
  
   const userData = await getUserData();  
   if (!userData) return redirect("/auth");
-  const [userWorkspaceData,userWorkspaceDataError] = await getUserWorkspaceData(userData.workspaces!);
+  const [userWorkspacesData,userWorkspaceDataError] = await getUserWorkspaceData(userData.workspaces!);
   const [currentWorkspaceData,currentWorkspaceDataError] = await getCurrentWorkspaceData(id);
 
 
@@ -16,7 +16,7 @@ const Workspace = async ({ params: { id } }: { params: { id: string } }) => {
     <div className="hidden md:block">
     <Sidebar 
          currentWorkspaceData={currentWorkspaceData}
-         userWorkspaceData={userWorkspaceData as UserWorkspace[]}
+         userWorkspacesData={userWorkspacesData as UserWorkspace[]}
          userData={userData}
     />
     </div>
