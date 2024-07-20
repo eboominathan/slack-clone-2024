@@ -10,11 +10,11 @@ export const getUserData = async (): Promise<User | null> => {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
   if (!user) {
     console.log("NO USER", user);
     return null;
   }
+ 
 
   const { data, error } = await supabase
     .from("users")
@@ -25,7 +25,7 @@ export const getUserData = async (): Promise<User | null> => {
     console.log(error);
     return null;
   }
-
+ 
   return data ? data[0] : null;
 };
 

@@ -6,9 +6,9 @@ export const getUserWorkspaceData = async (workspaceIds: Array<string>) => {
   const supabase = await supabaseServerClient();
 
   const { data, error } = await supabase
-    .from("workspaces")
-    .select("*")
-    .in("id", workspaceIds);
+    .from('workspaces')
+    .select('*')
+    .in('id', workspaceIds);
 
   return [data, error];
 };
