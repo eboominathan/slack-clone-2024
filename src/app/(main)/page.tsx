@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 
 export default async function Home() {
   const userData = await getUserData();
-  console.log(userData);
+  // console.log(userData);
   if (!userData) return redirect("/auth");
 
   const userWorkspaceId = userData?.workspaces?.[0];

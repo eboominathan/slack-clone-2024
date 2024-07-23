@@ -2,8 +2,6 @@
 
 import { useTheme } from 'next-themes';
 import { FC, ReactNode } from 'react';
-
- 
 import { cn } from '@/lib/utils';
 import { useColorPrefrences } from '@/app/providers/color-preferences';
 

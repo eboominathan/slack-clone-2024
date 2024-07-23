@@ -1,3 +1,4 @@
+'use client';
 import { FC, useState } from 'react';
 import { RiHome2Fill } from 'react-icons/ri';
 import { PiChatsTeardrop } from 'react-icons/pi';
@@ -16,7 +17,7 @@ import CreateWorkspace from '@/components/create-workspace';
 import { useRouter } from 'next/navigation';
  
 import { cn } from '@/lib/utils';
-import { useColorPrefrences } from '@/providers/color-prefrences';
+import { useColorPreferences } from '@/providers/color-prefrences';
 import { Copy } from 'lucide-react';
 import { toast } from 'sonner';
 import ProgressBar from './progress-bar';
@@ -32,14 +33,14 @@ const SidebarNav: FC<SidebarNavProps> = ({
 }) => {
   const router = useRouter();
   const [switchingWorkspace, setSwitchingWorkspace] = useState(false);
-  // const { color } = useColorPrefrences();
+  const { color } = useColorPreferences();
 
-  // let backgroundColor = 'bg-primary-dark';
-  // if (color === 'green') {
-  //   backgroundColor = 'bg-green-700';
-  // } else if (color === 'blue') {
-  //   backgroundColor = 'bg-blue-700';
-  // }
+  let backgroundColor = 'bg-primary-dark';
+  if (color === 'green') {
+    backgroundColor = 'bg-green-700';
+  } else if (color === 'blue') {
+    backgroundColor = 'bg-blue-700';
+  }
 
   const switchWorkspace = (id: string) => {
     setSwitchingWorkspace(true);
